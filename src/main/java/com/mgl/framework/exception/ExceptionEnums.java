@@ -1,4 +1,4 @@
-package com.mgl.framework.enums;
+package com.mgl.framework.exception;
 
 import com.mgl.framework.exception.MglException;
 import org.springframework.util.StringUtils;
@@ -11,7 +11,7 @@ public enum ExceptionEnums {
 
     PARAMS_ERROR(100001, "参数错误"),
 
-    NO_DATA_FIND(100002, "没有查询到数据"),
+    NOT_FIND_DATA(100002, "没有查询到数据"),
 
     DATA_IS_NULL(100003, "数据为null"),
     ;

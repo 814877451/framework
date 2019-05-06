@@ -1,3 +1,19 @@
 
 server:
   port: 8080
+
+#####################################mybatis配置##########################
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+#####################################数据库连接池##########################
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url:
+      username:
+      password:
+
+
+

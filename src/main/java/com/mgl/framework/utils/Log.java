@@ -18,7 +18,7 @@ public class Log {
         return this;
     }
 
-    public Log kv(String key, String value) {
+    public Log kv(String key, Object value) {
         message.append("[").append(key).append(":::").append(value).append("]");
         return this;
     }
