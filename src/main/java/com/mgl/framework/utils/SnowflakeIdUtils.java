@@ -3,6 +3,8 @@ package com.mgl.framework.utils;
 
 import com.mgl.framework.exception.ExceptionEnums;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.SecureRandom;
 
 /**
@@ -46,6 +48,22 @@ public class SnowflakeIdUtils {
     private static long sequence = 0L;
     /** 上次生成ID的时间截 */
     private static long lastTimestamp = -1L;
+
+    static {
+        InetAddress address;
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException var3) {
+            throw ExceptionEnums.SNOWFLAKE_EXCEPTION.expMsg("雪花算法:::获取本地IP异常");
+        }
+        byte[] ipAddressByteArray = address.getAddress();
+        workerId = (long)(((ipAddressByteArray[ipAddressByteArray.length - 2] & 3) << 8) + (ipAddressByteArray[ipAddressByteArray.length - 1] & 255));
+        if (workerId > maxWorkerId) {
+            throw ExceptionEnums.SNOWFLAKE_EXCEPTION.expMsg("雪花算法:::机器码大于最大值");
+        }else if (datacenterId > maxDatacenterId) {
+            throw ExceptionEnums.SNOWFLAKE_EXCEPTION.expMsg("雪花算法:::数据标识大于最大值");
+        }
+    }
 
 
     public static synchronized long nexeId() {
