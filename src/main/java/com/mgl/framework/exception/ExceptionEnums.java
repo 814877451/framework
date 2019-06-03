@@ -14,6 +14,8 @@ public enum ExceptionEnums {
     NOT_FIND_DATA(100002, "没有查询到数据"),
 
     DATA_IS_NULL(100003, "数据为null"),
+
+    SNOWFLAKE_EXCEPTION(100004, "雪花算法异常"),
     ;
 
     private int code;
