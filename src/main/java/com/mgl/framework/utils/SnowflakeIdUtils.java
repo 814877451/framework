@@ -49,7 +49,7 @@ public class SnowflakeIdUtils {
     /** 上次生成ID的时间截 */
     private static long lastTimestamp = -1L;
 
-    static {
+    /*static {
         InetAddress address;
         try {
             address = InetAddress.getLocalHost();
@@ -63,6 +63,10 @@ public class SnowflakeIdUtils {
         }else if (datacenterId > maxDatacenterId) {
             throw ExceptionEnums.SNOWFLAKE_EXCEPTION.expMsg("雪花算法:::数据标识大于最大值");
         }
+    }*/
+
+    public static Long generate() {
+        return nexeId();
     }
 
 
@@ -127,16 +131,21 @@ public class SnowflakeIdUtils {
     }
 
 
-    public static Long generate() {
-        return nexeId();
-    }
-
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException {
         int i = 0;
         while (i < 50) {
             System.out.println(String.valueOf(generate()));
             i++;
         }
+
+        InetAddress address = InetAddress.getLocalHost();
+        byte[] ipAddressByteArray = address.getAddress();
+        workerId = (long)(((ipAddressByteArray[ipAddressByteArray.length - 2] & 3) << 8) + (ipAddressByteArray[ipAddressByteArray.length - 1] & 255));
+        System.out.println(address.toString());
+        for (byte data : ipAddressByteArray) {
+            System.out.println(data);
+        }
+        System.out.println(workerId);
+
     }
 }
